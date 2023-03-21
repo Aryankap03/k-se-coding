@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script src="https://unpkg.com/blockly"></script>
+  <script src="customblocks.js"></script>
+
+<body>
+  <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+          viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        <span class="ml-3 text-xl">क Se Coding</span>
+      </a>
+
+      <!-- <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Button
+            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </button> -->
+    </div>
+  </header>
+  <section class="text-gray-600 body-font" style="
+  background-color: #40ae5959;">
+    <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+      <div
+        class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center"
+        style="
+    margin-top: -110px; margin-left:20px;
+">
+
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900"> हिंदी में कोडिंग सीखें, मज़े से और
+          आसानी से!
+          <br class="hidden lg:inline-block">Learn Coding in Hindi, with Fun and Ease!
+        </h1>
+        <p class="mb-8 leading-relaxed">Welcome to our interactive platform for teaching children how to code in Hindi!
+          Our engaging and user-friendly approach will help children learn the fundamentals of coding in their native
+          language, making it easier for them to grasp concepts and apply them in real-life scenarios. With our hands-on
+          activities, interactive games, and step-by-step tutorials, your child will develop valuable computational
+          thinking skills and become proficient in coding in no time. Join us on this exciting journey to unlock your
+          child's full potential!.</p>
+        
+      </div>
+      <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6" style="
+    margin-top: -145px;
+">
+        <img class="object-cover object-center rounded" alt="hero" src="pics/5.png">
+      </div>
+    </div>
+  </section>
+  <button onclick="runCode()"
+  style ="margin: 10px;
+  border: solid 1px #000;
+  border-radius: 6px;
+"> <p>Run JavaScript</p></button>
+  <div id="blocklyDiv" style="height: 500px; width: 1000px; position: absolute;"></div>
+  
+  <!-- <div class="flex justify-center">
+    <button
+      class="inline-flex text-white  border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+  </div> -->
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    
+    <category name="Print" colour="#5ba55b">
+      <block type="print" />
+    </category>
+    <sep></sep>
+    <category name="variable" colour="#5b67a5">
+      <block type="set" />
+    </category>
+    <sep></sep>
+    <category name="For" colour="#745ba5">
+      <block type="for" />
+    </category>
+    <sep></sep>
+    <category name="Program" colour="#a5745b">
+      <block type="color_change">
+        <field name="color">R</field>
+        <field name="choice">ON</field>
+      </block>
+    </category>
+    <sep></sep>
+    <category name="Program Example" colour="#5b67a5">
+      <block type="color_change">
+        <field name="color">R</field>
+        <field name="choice">ON</field>
+        <next>
+          <block type="for"></block>
+        </next>
+      </block>
+      <block type="set">
+        <field name="NAME">A</field>
+        <next>
+          <block type="for">
+            <next>
+              <block type="print"></block>
+            </next>
+          </block>
+        </next>
+      </block>
+      <block type="set">
+        <field name="NAME">A</field>
+        <next>
+          <block type="print"></block>
+        </next>
+      </block>
+      <block type="for">
+        <next>
+          <block type="print"></block>
+        </next>
+      </block>
+    </category>
+  </xml>
+  <div id ="output" style="
+      right: -1010px;
+    top: 0px;
+    background: #ffdcfbad;
+    position: relative;
+    height: 500px;
+"> <button></button></div>
+  <script>
+    const blocklyArea = document.getElementById('blocklyArea');
+    const blocklyDiv = document.getElementById('blocklyDiv');
+    const workspace = Blockly.inject(blocklyDiv,
+      { toolbox: document.getElementById('toolbox') });
+    const onresize = function (e) {
+      // Compute the absolute coordinates and dimensions of blocklyArea.
+      const element = blocklyArea;
+      let x = 0;
+      let y = 0;
+      do {
+        x += element.offsetLeft;
+        y += element.offsetTop;
+        element = element.offsetParent;
+      } while (element);
+      // Position blocklyDiv over blocklyArea.
+      blocklyDiv.style.left = x + 'px';
+      blocklyDiv.style.top = y + 'px';
+      blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+      blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+      Blockly.svgResize(workspace);
+    };
+    window.addEventListener('resize', onresize, false);
+    onresize();
+    function runCode() {
+      window.LoopTrap = 1000;
+      Blockly.JavaScript.INFINITE_LOOP_TRAP =
+        'if (—window. LoopTrap==0) throw "Infinite loop.";\n';
+      var code = Blockly.JavaScript.workspaceToCode(workspace);
+      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+      try {
+        eval(code);
+      } catch (e) {
+        alert(e);
+      }
+    }
+
+  </script>
+</body>
+
+</html>
